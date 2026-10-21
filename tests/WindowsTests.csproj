@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup>
+  <OutputType>Exe</OutputType><TargetFramework>net8.0-windows</TargetFramework>
+  <UseWindowsForms>true</UseWindowsForms><EnableWindowsTargeting>true</EnableWindowsTargeting>
+  <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
+  <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+ </PropertyGroup>
+ <ItemGroup>
+  <Compile Include="WindowsTests.cs" />
+  <Compile Include="../src/PageProcessingCore.cs" /><Compile Include="../src/PageProcessing.cs" />
+  <Compile Include="../src/Core.cs" /><Compile Include="../src/Reliability.cs" />
+  <Compile Include="../src/DocumentSession.cs" /><Compile Include="../src/DocumentExport.cs" />
+  <Compile Include="../src/PdfStreamWriter.cs" /><Compile Include="../src/RasterPacking.cs" />
+  <Compile Include="../src/ScanViewer.cs" />
+ </ItemGroup>
+</Project>

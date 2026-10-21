@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><EnableDefaultCompileItems>false</EnableDefaultCompileItems></PropertyGroup>
+<ItemGroup>
+<Compile Include="CoreTests.cs" />
+<Compile Include="ProcessingTests.cs" />
+<Compile Include="../src/PageProcessingCore.cs" Link="PageProcessingCore.cs" />
+<Compile Include="../src/Core.cs" Link="Core.cs" />
+<Compile Include="../src/DocumentSession.cs" Link="DocumentSession.cs" />
+<Compile Include="../src/ScannerBackend.cs" Link="ScannerBackend.cs" />
+<Compile Include="../src/PdfStreamWriter.cs" Link="PdfStreamWriter.cs" />
+<Compile Include="../src/Reliability.cs" Link="Reliability.cs" />
+<Compile Include="../src/RasterPacking.cs" Link="RasterPacking.cs" />
+</ItemGroup></Project>

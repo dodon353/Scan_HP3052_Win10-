@@ -1,0 +1,241 @@
+PASS: Blank sheet retains its complete boundaries
+PASS: Straight text is not rotated
+PASS: Skew -3 degrees detected with correct sign: 3
+PASS: Correction leaves horizontal text at -3 degrees
+PASS: Skew -1.4 degrees detected with correct sign: 1.4
+PASS: Correction leaves horizontal text at -1.4 degrees
+PASS: Skew 1.7 degrees detected with correct sign: -1.7
+PASS: Correction leaves horizontal text at 1.7 degrees
+PASS: Skew 3.2 degrees detected with correct sign: -3.2
+PASS: Correction leaves horizontal text at 3.2 degrees
+PASS: Crop uses the content union and three millimetres of padding
+PASS: Disabling crop retains canvas dimensions
+PASS: Larger physical padding expands the crop
+PASS: Preview crop maps proportionally onto the full resolution
+PASS: Faint peripheral page number is included in the crop
+PASS: A single noise pixel does not trigger destructive cropping
+PASS: Invalid physical margin is rejected
+PASS: Invalid image DPI is rejected
+PASS: Rotation outside the supported small-angle range is rejected
+PASS: Canceled analysis stops before editing pixels
+PASS: Readability lightens neutral paper without tinting
+PASS: Text contrast increases with selectable strength
+PASS: White paper remains white
+PASS: Colored stamp keeps its color channel ordering
+PASS: Background estimate handles a uniform gray sheet
+PASS: Processing commits a separate revision and updates its pixel mode
+PASS: Undo restores original image and mode without deleting the scan
+PASS: Redo restores the processed revision
+PASS: Deskewed gray paper edges are not mistaken for content during cropping
+PASS: Existing printer IP and custom Ubuntu name survive settings upgrade
+PASS: Legacy settings acquire default profiles and scan settings
+PASS: Photo profile has explicit paper, quality and resolution
+PASS: Profile copy is independent
+PASS: Valid printer IPv4: 192.168.110.100
+PASS: Valid printer IPv4: 10.0.0.1
+PASS: Valid printer IPv4: 172.16.1.50
+PASS: Invalid printer address rejected: 127.0.0.1
+PASS: Invalid printer address rejected: 0.0.0.0
+PASS: Invalid printer address rejected: 255.255.255.255
+PASS: Invalid printer address rejected: 224.1.1.1
+PASS: Invalid printer address rejected: 192.168.001.1
+PASS: Invalid printer address rejected: 1.2.3
+PASS: Invalid printer address rejected: ::1
+PASS: Invalid printer address rejected: 192.168.1.300
+PASS: Invalid printer address rejected: 1.2.3.4; touch /tmp/no
+PASS: Glass source and physical paper size are always explicit
+PASS: Captured scan request is immutable while UI values change
+PASS: Feeder source is explicitly passed to SANE
+PASS: Invalid scan request is rejected
+PASS: Invalid scan request is rejected
+PASS: Invalid scan request is rejected
+PASS: Invalid scan request is rejected
+PASS: Invalid scan request is rejected
+PASS: Invalid scan request is rejected
+PASS: Scan dimensions use decimal dot under Russian locale
+PASS: Shell values correctly escape apostrophes
+PASS: Source list excludes current-value brackets
+PASS: Enumerated driver DPI values are parsed
+PASS: Driver scan-area limits are parsed
+PASS: Supported paper size, mode and resolution pass validation
+PASS: Unavailable enumerated DPI is rejected
+PASS: Oversized original is rejected before scanning
+PASS: Unavailable color mode is rejected
+PASS: Driver feeder source resolves exactly
+PASS: Regression: legacy HPLIP Auto|ADF permits glass scanning through Auto
+PASS: Legacy HPLIP feeder still uses explicit ADF
+PASS: Explicit Flatbed takes priority over Auto when both are available
+PASS: ADF-only device cannot silently substitute a feeder for glass
+PASS: Auto cannot silently substitute for an explicit feeder batch
+PASS: Auto mapping retains logical glass source and requires an empty feeder
+PASS: Actual scan command passes the supported Auto value
+PASS: Native Flatbed and explicit ADF do not get the Auto warning
+PASS: Recovery request retains both physical and driver source
+PASS: Driver DPI ranges are parsed separately from enumerations
+PASS: Unsupported feeder is rejected instead of falling back to glass
+PASS: DPI below driver's minimum is rejected
+PASS: Empty feeder before first page is guidance, not a fatal scan error
+PASS: Paper ending after received pages is successful batch completion
+PASS: Jam and connection errors remain errors even after received pages
+PASS: Screenshot regression: SANE status 7 means empty feeder
+PASS: SANE error is not mistaken for normal feeder end: 1
+PASS: SANE error is not mistaken for normal feeder end: 3
+PASS: SANE error is not mistaken for normal feeder end: 5
+PASS: SANE error is not mistaken for normal feeder end: 6
+PASS: SANE error is not mistaken for normal feeder end: 8
+PASS: SANE error is not mistaken for normal feeder end: 9
+PASS: SANE error is not mistaken for normal feeder end: 10
+PASS: SANE error is not mistaken for normal feeder end: 11
+PASS: Empty feeder gets Russian paper-loading guidance
+PASS: Paper jams and device I/O retain distinct messages
+PASS: Windows reserved file names are protected on every platform
+PASS: Unsafe file-name characters and empty names are normalized
+PASS: Explicit selected-page export preserves selected-only mode
+PASS: Save-before-close/new-document always exports every page
+PASS: Document prefix applies to separate pages while explicit page names are retained
+PASS: Typed file extension is not duplicated during export
+PASS: Date naming uses a stable file-system-safe format
+PASS: Case-insensitive export name collisions are rejected
+PASS: New disk-backed project is empty and clean
+PASS: Scanned page is committed immediately and marked unsaved
+PASS: Restart restores page metadata and feeder origin marker
+PASS: Repeating batch recovery does not duplicate an imported page
+PASS: Deleting a recovered page retains the import tombstone
+PASS: Successful full export marks document saved
+PASS: Renaming a page creates an undoable unsaved change
+PASS: Undoing rename restores the exported document state
+PASS: Page reordering persists to the disk project
+PASS: Undo restores original page order
+PASS: Rotation/crop commits a separate image revision
+PASS: Undo restores original image file and physical metadata
+PASS: Multi-page removal is applied as one edit
+PASS: One undo restores all removed pages
+PASS: Undo after export correctly marks a different document unsaved
+PASS: Manifest write failure is surfaced
+PASS: Failed autosave rolls back in-memory edit
+PASS: Pages outside the project cannot be registered
+PASS: Corrupt recovery manifest is rejected
+PASS: Corrupt manifest is preserved for recovery rather than overwritten
+PASS: Recovery rejects image path traversal
+PASS: Missing recovery image is detected without resetting the project
+PASS: New document persistently ignores old batches even if their files cannot be removed
+PASS: New document clears history and creates a clean manifest
+PASS: Clearing document is persisted before old images are removed
+PASS: Atomic settings save retains installation compatibility
+PASS: Acquiring an original does not create a destructive undo step
+PASS: Undo after a feeder batch keeps every acquired page and only reverts the edit
+PASS: No per-page feeder undo steps remain
+PASS: Redo restores the edit with all scanned pages intact
+PASS: Multi-page removal is one action
+PASS: Undo restores an entire removed selection
+PASS: Redo reapplies the removal
+PASS: A new edit invalidates obsolete redo history
+PASS: Drag of several non-adjacent pages preserves their relative order
+PASS: One Undo restores a multi-page drag
+PASS: Cleanup keeps revisions reachable by Undo
+PASS: Cleanup keeps revisions reachable by Redo
+PASS: Closing history allows cleanup of unreachable old PNGs only
+PASS: First run has no invented printer address
+PASS: Saving settings retains the previous valid version
+PASS: Damaged settings warn and are not overwritten during loading
+PASS: Corrupt settings are backed up byte-for-byte before defaults are offered
+PASS: First save after corruption preserves the last valid backup
+PASS: Hostname and disabled Auto hint survive reload
+PASS: Valid scanner hostname: scanner.local
+PASS: Valid scanner hostname: HP3052
+PASS: Valid scanner hostname: hp-3052.office.lan
+PASS: Invalid scanner hostname rejected: 
+PASS: Invalid scanner hostname rejected: bad;command
+PASS: Invalid scanner hostname rejected: https://scanner
+PASS: Invalid scanner hostname rejected: bad..local
+PASS: Invalid scanner hostname rejected: -bad.local
+PASS: Invalid scanner hostname rejected: 192.168.1.999
+PASS: Discovery selects HP 3052 devices and removes duplicate addresses
+PASS: High-resolution color scan gets a bounded longer deadline
+PASS: Scan deadline scales with acquisition workload
+PASS: Preview uses driver minimum when 75 DPI is unsupported
+PASS: Photo preset does not limit full-glass preview dimensions
+PASS: Regression br-x: full preview does not reapply rounded CLI geometry
+PASS: Ordinary paper-size scanning retains explicit dimensions
+PASS: Preview geometry uses actual acquired pixels rather than the advertised maximum
+PASS: Native preview preserves reported nonzero default origin for crop coordinates
+PASS: Native-area mode survives request serialization
+PASS: Selected area keeps explicit millimeter coordinates after native preview
+PASS: Invalid acquired preview dimensions are rejected
+PASS: CLI exit 1 reports the actual rejected geometry instead of SANE unsupported-function status
+PASS: Other CLI errors preserve driver details
+PASS: Driver option failure still stops acquisition
+PASS: Save dialog automatically suggests a name with the correct extension: PDF
+PASS: One page uses the exact filename chosen in the save dialog: PDF
+PASS: Several separate files use the chosen stem and sequential numbering: PDF
+PASS: Save dialog filter matches output bytes: PDF
+PASS: Save dialog automatically suggests a name with the correct extension: JPG
+PASS: One page uses the exact filename chosen in the save dialog: JPG
+PASS: Several separate files use the chosen stem and sequential numbering: JPG
+PASS: Save dialog filter matches output bytes: JPG
+PASS: Save dialog automatically suggests a name with the correct extension: PNG
+PASS: One page uses the exact filename chosen in the save dialog: PNG
+PASS: Several separate files use the chosen stem and sequential numbering: PNG
+PASS: Save dialog filter matches output bytes: PNG
+PASS: Save dialog automatically suggests a name with the correct extension: TIFF
+PASS: One page uses the exact filename chosen in the save dialog: TIFF
+PASS: Several separate files use the chosen stem and sequential numbering: TIFF
+PASS: Save dialog filter matches output bytes: TIFF
+PASS: Save dialog automatically suggests a name with the correct extension: BMP
+PASS: One page uses the exact filename chosen in the save dialog: BMP
+PASS: Several separate files use the chosen stem and sequential numbering: BMP
+PASS: Save dialog filter matches output bytes: BMP
+PASS: Merged PDF keeps one chosen filename for every page
+PASS: JPEG alias from the save dialog is preserved
+PASS: TIFF alias from the save dialog is preserved
+PASS: A typed extension cannot mislabel PNG bytes as PDF
+PASS: Dots in a custom name are retained while the output extension is added
+PASS: Automatic naming avoids a collision with any file in a batch
+PASS: Same-second saves suggest a fresh filename instead of an overwrite
+PASS: Grayscale storage has one byte per pixel
+PASS: Monochrome rows are bit-packed MSB-first with correct black/white polarity
+PASS: Color rows convert BGR to RGB
+PASS: PNG Up predictor resets identical following row to zero: Gray
+PASS: PDF declares the actual channels, bit depth and predictor: Gray
+PASS: PNG Up predictor resets identical following row to zero: Lineart
+PASS: PDF declares the actual channels, bit depth and predictor: Lineart
+PASS: PNG Up predictor resets identical following row to zero: Color
+PASS: PDF declares the actual channels, bit depth and predictor: Color
+PASS: Lossless multi-page PDF includes a valid header and page count
+PASS: PDF retains physical size and rotated orientation
+PASS: Text PDF uses lossless zlib streams
+PASS: PDF startxref points to the actual cross-reference table
+PASS: Every PDF object offset points to the correct object
+PASS: PDF overwrite requires explicit consent
+PASS: Refused overwrite leaves existing PDF byte-for-byte unchanged
+PASS: Cancelled export is stopped before replacing destination
+PASS: Cancelled export leaves no partial destination file
+PASS: Page encoding failure is propagated
+PASS: Failed multi-page export leaves no broken final PDF
+PASS: Invalid physical resolution cannot produce malformed PDF
+PASS: Per-page encoded image is removed after PDF streaming
+PASS: Export failure and cancellation clean temporary PDF files
+PASS: Real child process preserves Linux UTF-8 output and distro argument with spaces
+PASS: Both native pipes are drained concurrently and error code retained
+PASS: Capabilities are fetched for the selected physical source
+PASS: Initial capability check queries general and source-specific options
+PASS: Repeated scan reuses capabilities for the same scanner/source
+PASS: Explicit connection check refreshes driver capabilities
+PASS: Backend rejects unsupported resolution before acquiring data
+PASS: Feeder capabilities use an explicit ADF source
+PASS: Completed feeder pages are retained when SANE ends with no-documents status
+PASS: Feeder end is classified separately from hardware errors
+PASS: Real process fixture: legacy HP connection check accepts Auto without changing glass into a batch
+PASS: Connection check only probes options and uses Auto in the source-specific query
+PASS: Prepared legacy glass scan uses Auto on acquisition too
+PASS: Legacy batch remains explicit ADF after a glass connection check
+PASS: Cache keeps glass/Auto mapping independent of the feeder
+PASS: Cancellation stops the recorded Linux job
+PASS: Cancelling one scan job does not kill another Linux job
+PASS: Timeout stops the recorded job and reports a timeout
+PASS: Pre-cancelled operation does not launch WSL
+PASS: Cancellation before PID publication returns cancellation
+PASS: Early cancellation stops a detached Linux job even when its PID was not written yet
+PASS: Process fixture reproduces the supplied br-x Invalid argument log
+PASS: Native-area preview succeeds against the same fixture without retrying or overriding limits
+TOTAL PASSED: 240

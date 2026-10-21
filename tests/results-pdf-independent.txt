@@ -1,0 +1,4 @@
+PASS: independently rendered pixels, both rows: Lineart
+PASS: independently rendered pixels, both rows: Gray
+PASS: independently rendered pixels, both rows: Color
+PASS: independently extracted packed monochrome has correct polarity

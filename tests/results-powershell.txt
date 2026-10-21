@@ -1,0 +1,14 @@
+PASS: PowerShell parser: Download-Ubuntu.ps1
+PASS: PowerShell parser: Install-Ubuntu.ps1
+PASS: PowerShell parser: Save-Scanner-IP.ps1
+PASS: PowerShell parser: Setup-All.ps1
+PASS: PowerShell parser: Wsl-Common.ps1
+PASS: PowerShell parser: Run-Tests.ps1
+PASS: IP helper changes only printer connection fields
+PASS: Profiles, current scan settings and folder survive scanner reconfiguration
+PASS: Nested settings are not truncated by JSON serialization depth
+PASS: Atomic replacement preserves profiles while updating existing settings
+PASS: Atomic settings write leaves no temporary files
+PASS: Initial setup creates connection settings without requiring application profiles
+PASS: Invalid settings root cannot be silently overwritten
+TOTAL PASSED: 13

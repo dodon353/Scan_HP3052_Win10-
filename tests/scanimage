@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+import sys,os,json
+with open(os.environ['HP3052_TEST_CALLS'],'a') as f:f.write(json.dumps(sys.argv[1:])+'\n')
+if os.environ.get('HP3052_TEST_GEOMETRY')=='1' and '-A' not in sys.argv:
+ if any(arg in sys.argv for arg in ['-x','-y','-l','-t']):
+  sys.stderr.write('scanimage: setting of option --br-x failed (Invalid argument)\n');sys.exit(1)
+ sys.stdout.write('native-preview-fixture');sys.exit(0)
+if '-A' in sys.argv:
+ sources=os.environ.get('HP3052_TEST_SOURCES','Flatbed|ADF')
+ if '--source' in sys.argv and sys.argv[sys.argv.index('--source')+1] not in sources.split('|'):
+  sys.stderr.write('scanimage: setting of option --source failed (Invalid argument)\n');sys.exit(4)
+ print(('''  --source SOURCES [DEFAULT]
+  --mode Lineart|Gray|Color [Color]
+  --resolution 75|100|150|200|300|600|1200dpi [300]
+  -l 0..215.9mm [0]
+  -t 0..297mm [0]
+  -x 0..215.9mm [215.9]
+  -y 0..297mm [297]
+''').replace('SOURCES',sources).replace('DEFAULT',sources.split('|')[0]))
+else:
+ sys.stderr.write('Scanning infinity pages, incrementing by 1, numbering from 1\nScanned page 1. (scanner status = 5)\nScanned page 2. (scanner status = 5)\nscanimage: sane_start: Document feeder out of documents\n')
+ sys.exit(7)

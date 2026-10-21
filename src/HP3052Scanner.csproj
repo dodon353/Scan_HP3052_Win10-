@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup>
+  <OutputType>WinExe</OutputType><TargetFramework>net8.0-windows</TargetFramework>
+  <EnableWindowsTargeting>true</EnableWindowsTargeting>
+ <UseWindowsForms>true</UseWindowsForms><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings>
+  <Version>0.7.0</Version><ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+ <AssemblyName>HP3052Scanner</AssemblyName><ApplicationIcon>Assets/scanner.ico</ApplicationIcon>
+ </PropertyGroup>
+</Project>

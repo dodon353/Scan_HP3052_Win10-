@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+app/
+.vs/
+.idea/
+**/__pycache__/
+test-results-*/
+*.user
+*.suo
+*.pdb
+*.log
+dist/
+.nuget/
