@@ -34,9 +34,11 @@ with zipfile.ZipFile(EXTRA / 'Исходники.zip', 'w', zipfile.ZIP_DEFLATED
     archive.writestr('HP3052Scanner_Source_0.7.0/PACKAGE-MANIFEST.sha256', ''.join(hashes))
 
 nuget = Path(os.environ.get('NUGET_PACKAGES', Path.home() / '.nuget/packages'))
+# The pinned 8.0.32 runtime and host packages carry identical LICENSE and
+# THIRD-PARTY-NOTICES files. One copy covers both. On Windows the host pack
+# is supplied by the SDK and need not exist in the NuGet cache.
 for package, label in (
-    ('microsoft.netcore.app.runtime.win-x64', 'NET-Runtime'),
-    ('microsoft.netcore.app.host.win-x64', 'NET-Host'),
+    ('microsoft.netcore.app.runtime.win-x64', 'NET-Runtime-and-Host'),
     ('microsoft.windowsdesktop.app.runtime.win-x64', 'WindowsDesktop'),
 ):
     versions = sorted((nuget / package).glob('*'), key=lambda p: tuple(int(n) for n in p.name.split('.')))
