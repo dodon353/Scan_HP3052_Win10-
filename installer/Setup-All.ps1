@@ -17,7 +17,6 @@ function InstallLinux {
         $r = WslCapture -Parameters @('-d', $Distro, '-u', 'root', '--exec', 'dpkg-query', '-s', $package)
         if ($r.Code -ne 0 -or $r.Value -notmatch '(?m)^Status: install ok installed\r?$') { Fail "Scanner package is not ready: $package`n$($r.Value)" }
     }
-    RunLinux -LinuxArgs @('/bin/sh', '-c', 'service dbus start >/dev/null 2>&1 || true')
     Write-Host 'Scanner packages ready. No scan attempted.' -ForegroundColor Green
 }
 function CreateShortcuts([string]$Exe) {
@@ -53,6 +52,9 @@ try {
     & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'Save-Scanner-IP.ps1') -Distro $Distro
     if ($LASTEXITCODE -ne 0) { Fail 'Printer address was not saved.' }
     CreateShortcuts $exe
+    Step 'Enabling D-Bus autostart for the current Windows user...'
+    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'Dbus-Autostart.ps1') -Distro $Distro
+    if ($LASTEXITCODE -ne 0) { Fail 'D-Bus autostart could not be enabled. See the error above; retry DBUS-AUTOSTART.cmd.' }
     Step 'Setup completed. Use the HP 3052 Scanner shortcut.'
 } catch {
     Write-Host ('ERROR: ' + $_.Exception.Message) -ForegroundColor Red
