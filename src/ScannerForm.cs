@@ -442,6 +442,21 @@ internal sealed partial class ScannerForm : Form
             Size = new Size(Math.Min(Width, wa.Width), Math.Min(Height, wa.Height));
             Location = new Point(wa.Left + (wa.Width - Width) / 2, wa.Top + (wa.Height - Height) / 2);
             await RestoreDocument();
+            if (IsDisposed || Disposing) return;
+            await RunOperation(async token =>
+            {
+                SetStatus("Подготовка службы D-Bus в Ubuntu…");
+                try
+                {
+                    await backend.EnsureDbusAsync(config.distro, token);
+                    SetStatus("D-Bus отвечает. Можно сканировать.");
+                }
+                catch (Exception e) when (e is not OperationCanceledException)
+                {
+                    AppFiles.Log("D-Bus startup: " + e);
+                    SetStatus("D-Bus недоступна. Повторная проверка — перед сканированием. Подробности в журнале.");
+                }
+            });
         };
         ConfigureThumbnails();
         DpiChanged += (_, _) => { ConfigureThumbnails(); RefreshPages(); };
@@ -636,6 +651,7 @@ internal sealed partial class ScannerForm : Form
 
     async Task<ScanRequest> PrepareRequest(ScanRequest request, CancellationToken token, bool refresh = false, bool expandPaper = true, bool probeOnly = false, bool preview = false)
     {
+        await backend.EnsureDbusAsync(request.Distro, token);
         var prepared = await backend.Prepare(request, token, refresh, false);
         var c = prepared.Capabilities;
         capabilities.Text = "Драйвер: " + (request.Source == "ADF" ? "автоподатчик" : "стекло") + "; DPI " + (c.Resolutions.Count > 0 ? string.Join(", ", c.Resolutions) : $"{c.MinDpi}–{c.MaxDpi}");

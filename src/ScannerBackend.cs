@@ -159,6 +159,25 @@ internal sealed class ScannerBackend
         return new(process.ExitCode, stdout, stderr);
     }
 
+    public async Task EnsureDbusAsync(string distro, CancellationToken token)
+    {
+        using var script = typeof(ScannerBackend).Assembly.GetManifestResourceStream("HP3052Scanner.Ensure-Dbus.sh")
+            ?? throw new InvalidOperationException("В сборке отсутствует сценарий проверки D-Bus.");
+        using var reader = new StreamReader(script, Encoding.UTF8);
+        string command = "/bin/sh -c " + ScanRequest.Quote(reader.ReadToEnd().Replace("\r", ""));
+        LinuxResult result;
+        try
+        {
+            result = await RunAsync(distro, command, token, 35000);
+        }
+        catch (TimeoutException e)
+        {
+            throw new IOException("Ubuntu не ответила при запуске службы D-Bus. Подробности в журнале.", e);
+        }
+        if (result.Code != 0)
+            throw new IOException("Не удалось запустить службу D-Bus в Ubuntu. Подробности в журнале приложения.");
+    }
+
     public async Task<(ScanRequest Request, ScannerCapabilities Capabilities)> Prepare(ScanRequest request, CancellationToken token, bool refresh = false, bool validate = true)
     {
         request = request with { Ip = await ScannerAddress.Resolve(request.Ip, token), Address = request.Address ?? request.Ip };
