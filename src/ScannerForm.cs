@@ -643,7 +643,6 @@ internal sealed partial class ScannerForm : Form
 
     async Task<ScanRequest> PrepareRequest(ScanRequest request, CancellationToken token, bool refresh = false, bool expandPaper = true, bool probeOnly = false, bool preview = false)
     {
-        await backend.TryEnsureDbusAsync(request.Distro, token);
         var prepared = await backend.Prepare(request, token, refresh, false);
         var c = prepared.Capabilities;
         capabilities.Text = "Драйвер: " + (request.Source == "ADF" ? "автоподатчик" : "стекло") + "; DPI " + (c.Resolutions.Count > 0 ? string.Join(", ", c.Resolutions) : $"{c.MinDpi}–{c.MaxDpi}");
