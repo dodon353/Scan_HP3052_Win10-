@@ -446,16 +446,8 @@ internal sealed partial class ScannerForm : Form
             await RunOperation(async token =>
             {
                 SetStatus("Подготовка службы D-Bus в Ubuntu…");
-                try
-                {
-                    await backend.EnsureDbusAsync(config.distro, token);
-                    SetStatus("D-Bus отвечает. Можно сканировать.");
-                }
-                catch (Exception e) when (e is not OperationCanceledException)
-                {
-                    AppFiles.Log("D-Bus startup: " + e);
-                    SetStatus("D-Bus недоступна. Повторная проверка — перед сканированием. Подробности в журнале.");
-                }
+                bool ready = await backend.TryEnsureDbusAsync(config.distro, token);
+                SetStatus(ready ? "D-Bus отвечает." : "D-Bus не подтвердила готовность. Можно проверить связь со сканером.");
             });
         };
         ConfigureThumbnails();
@@ -651,7 +643,7 @@ internal sealed partial class ScannerForm : Form
 
     async Task<ScanRequest> PrepareRequest(ScanRequest request, CancellationToken token, bool refresh = false, bool expandPaper = true, bool probeOnly = false, bool preview = false)
     {
-        await backend.EnsureDbusAsync(request.Distro, token);
+        await backend.TryEnsureDbusAsync(request.Distro, token);
         var prepared = await backend.Prepare(request, token, refresh, false);
         var c = prepared.Capabilities;
         capabilities.Text = "Драйвер: " + (request.Source == "ADF" ? "автоподатчик" : "стекло") + "; DPI " + (c.Resolutions.Count > 0 ? string.Join(", ", c.Resolutions) : $"{c.MinDpi}–{c.MaxDpi}");

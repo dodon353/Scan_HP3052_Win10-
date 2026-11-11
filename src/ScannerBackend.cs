@@ -159,23 +159,26 @@ internal sealed class ScannerBackend
         return new(process.ExitCode, stdout, stderr);
     }
 
-    public async Task EnsureDbusAsync(string distro, CancellationToken token)
+    public async Task<bool> TryEnsureDbusAsync(string distro, CancellationToken token)
     {
-        using var script = typeof(ScannerBackend).Assembly.GetManifestResourceStream("HP3052Scanner.Ensure-Dbus.sh")
-            ?? throw new InvalidOperationException("В сборке отсутствует сценарий проверки D-Bus.");
-        using var reader = new StreamReader(script, Encoding.UTF8);
-        string command = "/bin/sh -c " + ScanRequest.Quote(reader.ReadToEnd().Replace("\r", ""));
-        LinuxResult result;
+        token.ThrowIfCancellationRequested();
         try
         {
-            result = await RunAsync(distro, command, token, 35000);
+            using var script = typeof(ScannerBackend).Assembly.GetManifestResourceStream("HP3052Scanner.Ensure-Dbus.sh")
+                ?? throw new InvalidOperationException("В сборке отсутствует сценарий проверки D-Bus.");
+            using var reader = new StreamReader(script, Encoding.UTF8);
+            string command = "/bin/sh -c " + ScanRequest.Quote(reader.ReadToEnd().Replace("\r", ""));
+            var result = await RunAsync(distro, command, token, 35000);
+            token.ThrowIfCancellationRequested();
+            // The preflight is advisory. Only the scanner command determines whether scanning works.
+            return result.Code == 0;
         }
-        catch (TimeoutException e)
+        catch (Exception e) when (e is IOException or TimeoutException or InvalidOperationException or System.ComponentModel.Win32Exception)
         {
-            throw new IOException("Ubuntu не ответила при запуске службы D-Bus. Подробности в журнале.", e);
+            token.ThrowIfCancellationRequested();
+            AppFiles.Log("D-Bus preflight: " + e);
+            return false;
         }
-        if (result.Code != 0)
-            throw new IOException("Не удалось запустить службу D-Bus в Ubuntu. Подробности в журнале приложения.");
     }
 
     public async Task<(ScanRequest Request, ScannerCapabilities Capabilities)> Prepare(ScanRequest request, CancellationToken token, bool refresh = false, bool validate = true)

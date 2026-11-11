@@ -8,7 +8,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / 'dist'
-PACKAGE = DIST / 'HP3052Scanner_0.7.2'
+PACKAGE = DIST / 'HP3052Scanner_0.7.3'
 EXE = DIST / 'publish' / 'HP3052Scanner.exe'
 if not EXE.is_file() or EXE.stat().st_size < 10_000_000:
     raise RuntimeError('A standalone EXE must be published before packaging.')
@@ -29,9 +29,9 @@ with zipfile.ZipFile(EXTRA / 'Исходники.zip', 'w', zipfile.ZIP_DEFLATED
     hashes = []
     for name in sorted(n for n in tracked if n):
         file = ROOT / name
-        archive.write(file, 'HP3052Scanner_Source_0.7.2/' + name)
+        archive.write(file, 'HP3052Scanner_Source_0.7.3/' + name)
         hashes.append(hashlib.sha256(file.read_bytes()).hexdigest() + '  ' + name + '\n')
-    archive.writestr('HP3052Scanner_Source_0.7.2/PACKAGE-MANIFEST.sha256', ''.join(hashes))
+    archive.writestr('HP3052Scanner_Source_0.7.3/PACKAGE-MANIFEST.sha256', ''.join(hashes))
 
 nuget = Path(os.environ.get('NUGET_PACKAGES', Path.home() / '.nuget/packages'))
 # The pinned 8.0.32 runtime and host packages carry identical LICENSE and
@@ -55,7 +55,7 @@ for package, label in (
 
 sha = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
 (EXTRA / 'О_сборке.txt').write_text(
-    'HP 3052 Scanner 0.7.2\nWindows x64, standalone single-file with bundled .NET.\n'
+    'HP 3052 Scanner 0.7.3\nWindows x64, standalone single-file with bundled .NET.\n'
     'Built on Windows in GitHub Actions after Core, Windows image and PowerShell checks.\n'
     'Source commit: ' + sha + '\n'
     'WSL1/Ubuntu/HPLIP are required for scanner access. No hardware scan was run in CI.\n',
@@ -64,7 +64,7 @@ sha = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True)
 files = sorted(p for p in PACKAGE.rglob('*') if p.is_file())
 manifest = EXTRA / 'Контрольные_суммы.sha256'
 manifest.write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest() + '  ' + p.relative_to(PACKAGE).as_posix() + '\n' for p in files), encoding='utf-8')
-output = DIST / 'HP3052Scanner_v0.7.2_Windows_x64.zip'
+output = DIST / 'HP3052Scanner_v0.7.3_Windows_x64.zip'
 with zipfile.ZipFile(output, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
     for file in files + [manifest]:
         archive.write(file, PACKAGE.name + '/' + file.relative_to(PACKAGE).as_posix())
